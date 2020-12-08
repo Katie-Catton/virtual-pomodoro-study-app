@@ -1,5 +1,6 @@
 //  ViewController.swift
 //  virtual-pomodoro-study-app
+
 //
 //  Created by Matthew Kim on 12/08/20.
 //  Copyright © 2020 Matthew Kim. All rights reserved.
@@ -19,6 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
 
         view.backgroundColor = .white
         

@@ -20,7 +20,6 @@ class SettingsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
-        
         setupViews()
     }
     
@@ -29,6 +28,7 @@ class SettingsTableViewCell: UITableViewCell {
     }
     
     func setupViews() {
+        // *nameLabel
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
@@ -36,13 +36,13 @@ class SettingsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            nameLabel.heightAnchor.constraint(equalToConstant: 25),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
         ])
         
+        // *numericInput
         numericInput = UITextField()
         numericInput.translatesAutoresizingMaskIntoConstraints = false
-        numericInput.attributedPlaceholder = NSAttributedString(string: "00:00:00", attributes: [.foregroundColor: UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0), .font: UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)])
         numericInput.textAlignment = .center
         numericInput.font = UIFont(name: "HelveticaNeue-Light", size: 24)
         numericInput.textColor = .black
@@ -50,6 +50,7 @@ class SettingsTableViewCell: UITableViewCell {
         numericInput.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         numericInput.layer.cornerRadius = 10
         
+        // *toggleMute
         toggleMute = UISwitch()
         toggleMute.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -60,7 +61,17 @@ class SettingsTableViewCell: UITableViewCell {
     }
     
     func selectTypeOfInput(setting: Setting) {
-        if setting.type == .input {
+        if setting.type != .toggle{
+            var placeholderText: String
+            if setting.type == .inputTime {
+                placeholderText = "00:00:00"
+            }
+            else {
+                placeholderText = "4"
+            }
+            
+            // *numericInput
+            numericInput.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [.foregroundColor: UIColor.black, .font: UIFont(name: "HelveticaNeue-Light", size: 24)!])
             contentView.addSubview(numericInput)
             
             NSLayoutConstraint.activate([
@@ -71,6 +82,7 @@ class SettingsTableViewCell: UITableViewCell {
             ])
         }
         else {
+            // *toggleMute
             contentView.addSubview(toggleMute)
             
             NSLayoutConstraint.activate([

@@ -27,6 +27,21 @@ class ViewController: UIViewController {
         setupViews()
         setupConstraints()
         
+        // added a call to this procedure to format the navigation bar for the entire app
+        // please don't remove
+        // -Katie
+        setupNavigationBar()
+    }
+    
+    // modifies default navigation bar
+    func setupNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        navigationController?.navigationBar.tintColor = .black
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Login", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
     }
     
     func setupViews() {
@@ -120,6 +135,10 @@ class ViewController: UIViewController {
         
     }
     
+    // added this is order to continue setting up the ViewControllers for the rest of the app
+    // you can change the name and content but make sure to somehow keep the ability to push
+    // a new CreateOrJoinViewController onto the stack
+    // - Katie
     @objc func testLogin() {
         let newViewController = CreateOrJoinViewController()
         navigationController?.pushViewController(newViewController, animated: true)

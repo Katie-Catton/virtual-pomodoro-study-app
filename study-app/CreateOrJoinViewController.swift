@@ -8,6 +8,8 @@ import UIKit
 
 class CreateOrJoinViewController: UIViewController {
     
+    // allows user to scroll as necessary
+    var scrollView: UIScrollView!
     // app icon
     var tomatoImage: UIImageView!
     // welcome text
@@ -23,22 +25,31 @@ class CreateOrJoinViewController: UIViewController {
     // field to input a "room code" to join a session
     var inputCode: UITextField!
     // error message if room code is incorrect
-    var incorrectLabel: UITextView!
+    var incorrectLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Create", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
         setupViews()
         setupConstraints()
     }
     
     func setupViews() {
+        
+        // *scrollView
+        scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height + 150)
+        view.addSubview(scrollView)
+        
         // *tomatoImage
         tomatoImage = UIImageView()
         tomatoImage.translatesAutoresizingMaskIntoConstraints = false
         tomatoImage.contentMode = .scaleAspectFit
         tomatoImage.image = UIImage(named: "tomatoicon")
-        view.addSubview(tomatoImage)
+        scrollView.addSubview(tomatoImage)
         
         // *welcomeLabel
         // TODO pass user's name as parameter to createWelcomeLabel()
@@ -46,7 +57,7 @@ class CreateOrJoinViewController: UIViewController {
         welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
         welcomeLabel.attributedText = createWelcomeLabel()
         welcomeLabel.textColor = .black
-        view.addSubview(welcomeLabel)
+        scrollView.addSubview(welcomeLabel)
         
         // *instructionText
         instructionText = UITextView()
@@ -56,7 +67,7 @@ class CreateOrJoinViewController: UIViewController {
         instructionText.font = UIFont(name: "HelveticaNeue-Light", size: 20)
         instructionText.isScrollEnabled = false
         instructionText.isEditable = false
-        view.addSubview(instructionText)
+        scrollView.addSubview(instructionText)
         
         // *createButton
         createButton = UIButton(type: UIButton.ButtonType.system)
@@ -67,7 +78,6 @@ class CreateOrJoinViewController: UIViewController {
         createButton.backgroundColor = .white
         createButton.layer.borderWidth = 1
         createButton.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
-        // shadow underneath button
         createButton.layer.shadowColor = UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0).cgColor
         createButton.layer.shadowOffset = CGSize(width: 0, height: 4)
         createButton.layer.shadowOpacity = 0.25
@@ -76,7 +86,7 @@ class CreateOrJoinViewController: UIViewController {
         createButton.layer.cornerRadius = 29
         createButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 39, bottom: 16, right: 39)
         createButton.addTarget(self, action: #selector(pushSettings), for: .touchUpInside)
-        view.addSubview(createButton)
+        scrollView.addSubview(createButton)
         
         // *separateButtonText
         separateButtonText = UILabel()
@@ -84,7 +94,7 @@ class CreateOrJoinViewController: UIViewController {
         separateButtonText.text = "- OR -"
         separateButtonText.font = UIFont(name: "HelveticaNeue-Light", size: 25)
         separateButtonText.textColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0)
-        view.addSubview(separateButtonText)
+        scrollView.addSubview(separateButtonText)
         
         // *joinButton
         joinButton = UIButton(type: UIButton.ButtonType.system)
@@ -95,7 +105,6 @@ class CreateOrJoinViewController: UIViewController {
         joinButton.backgroundColor = .white
         joinButton.layer.borderWidth = 1
         joinButton.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
-        // shadow underneath button
         joinButton.layer.shadowColor = UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0).cgColor
         joinButton.layer.shadowOffset = CGSize(width: 0, height: 4)
         joinButton.layer.shadowOpacity = 0.25
@@ -103,46 +112,52 @@ class CreateOrJoinViewController: UIViewController {
         joinButton.layer.masksToBounds = false
         joinButton.layer.cornerRadius = 29
         joinButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 47, bottom: 16, right: 47)
-        joinButton.addTarget(self, action: #selector(pushConference), for: .touchUpInside)
-        view.addSubview(joinButton)
+        joinButton.addTarget(self, action: #selector(pushMeeting), for: .touchUpInside)
+        scrollView.addSubview(joinButton)
         
         // *inputCode
         inputCode = UITextField()
         inputCode.translatesAutoresizingMaskIntoConstraints = false
-        // TODO make sure the force unwrapped font attribute make sense
-        inputCode.attributedPlaceholder = NSAttributedString(string: "Enter room code here", attributes: [.foregroundColor: UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0), .font: UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)])
+        // TODO figure out why ! is needed for .font attribute
+        inputCode.attributedPlaceholder = NSAttributedString(string: "Enter room code here", attributes: [.foregroundColor: UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0), .font: UIFont(name: "HelveticaNeue-Light", size: 20)!])
         inputCode.textAlignment = .center
         inputCode.font = UIFont(name: "HelveticaNeue-Light", size: 20)
         inputCode.textColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0)
         inputCode.layer.borderWidth = 1
         inputCode.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         inputCode.layer.cornerRadius = 10
-        view.addSubview(inputCode)
+        scrollView.addSubview(inputCode)
         
-        // TODO
         // *incorrectLabel
-        incorrectLabel = UITextView()
+        incorrectLabel = UILabel()
         incorrectLabel.translatesAutoresizingMaskIntoConstraints = false
-        incorrectLabel.text = "Incorrect room code.\nPlease try again."
+        incorrectLabel.text = "Incorrect room code. Please try again."
         incorrectLabel.textColor = .black
-        incorrectLabel.isScrollEnabled = false
-        incorrectLabel.isEditable = false
-        incorrectLabel.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+        incorrectLabel.font = UIFont(name: "HelveticaNeue-Light", size: 15)
     }
     
+    // returns a String of the form "Welcome, <b>UserName!</b>.
     func createWelcomeLabel()-> NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString(string: "Welcome, ", attributes: [.font: UIFont(name: "HelveticaNeue-Light", size: 30.0) ?? UIFont.systemFont(ofSize: 30)])
-        let nameAttributedString = NSMutableAttributedString(string: "Michael!", attributes: [.font: UIFont(name: "HelveticaNeue-Bold", size: 30.0) ?? UIFont.systemFont(ofSize: 30)])
+        let attributedString = NSMutableAttributedString(string: "Welcome, ", attributes: [.font: UIFont(name: "HelveticaNeue-Light", size: 30.0)!])
+        let nameAttributedString = NSMutableAttributedString(string: "Michael!", attributes: [.font: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!])
         attributedString.append(nameAttributedString)
         return attributedString
     }
     
     func setupConstraints() {
+        // *scrollView
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
         // *tomatoImage
         NSLayoutConstraint.activate([
             tomatoImage.heightAnchor.constraint(equalToConstant: 200),
             tomatoImage.widthAnchor.constraint(equalToConstant: 220),
-            tomatoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 75),
+            tomatoImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 75),
             tomatoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
@@ -175,8 +190,7 @@ class CreateOrJoinViewController: UIViewController {
         NSLayoutConstraint.activate([
             inputCode.topAnchor.constraint(equalTo: separateButtonText.bottomAnchor, constant: 27),
             inputCode.heightAnchor.constraint(equalToConstant: 58),
-            // TODO make sure box does not resize when typing
-            inputCode.widthAnchor.constraint(equalTo: createButton.widthAnchor, constant: -10),
+            inputCode.widthAnchor.constraint(equalToConstant: 238),
             inputCode.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
@@ -185,24 +199,38 @@ class CreateOrJoinViewController: UIViewController {
             joinButton.topAnchor.constraint(equalTo: inputCode.bottomAnchor, constant: 16),
             joinButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
-        // *incorrectLabel
-//        NSLayoutConstraint.activate([
-//            incorrectLabel.topAnchor.constraint(equalTo: inputCode.bottomAnchor, constant: 14),
-//            incorrectLabel.leadingAnchor.constraint(equalTo: inputCode.leadingAnchor)
-//        ])
     }
 
-    // TODO implement this method
-    //
     @objc func pushSettings() {
+        incorrectLabel.removeFromSuperview()
         let newViewController = SettingsViewController()
         navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    // TODO implement this method
-    //
-    @objc func pushConference() {
-        // if room code is input correctly, present final screen (helper method)?
+    // TODO finish implementing this method
+    @objc func pushMeeting() {
+        // if room code is input correctly, present final screen. Otherwise, show error message
+//        if inputCode.text == some valid String {
+//            incorrectLabel.removeFromSuperview()
+//            let newViewController = MeetingViewController()
+//            navigationController?.pushViewController(newViewController, animated: true)
+//        }
+        //else {
+            view.addSubview(incorrectLabel)
+            
+            NSLayoutConstraint.activate([
+                incorrectLabel.topAnchor.constraint(equalTo: separateButtonText.bottomAnchor, constant: 24),
+                incorrectLabel.heightAnchor.constraint(equalToConstant: 20),
+                incorrectLabel.leadingAnchor.constraint(equalTo: createButton.leadingAnchor)
+            ])
+        
+            // *inputCode
+            NSLayoutConstraint.activate([
+                inputCode.topAnchor.constraint(equalTo: incorrectLabel.bottomAnchor, constant: 6),
+                inputCode.heightAnchor.constraint(equalToConstant: 58),
+                inputCode.widthAnchor.constraint(equalToConstant: 238),
+                inputCode.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        //}
     }
 }

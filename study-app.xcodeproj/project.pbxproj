@@ -13,6 +13,7 @@
 		BFCF8B63257DB86D00CA8808 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF8B62257DB86D00CA8808 /* NetworkManager.swift */; };
 		BFD0F4BC257DCF5E00F97441 /* CreateOrJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD0F4BB257DCF5E00F97441 /* CreateOrJoinViewController.swift */; };
 		BFD50B012580908F00A6B05C /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD50B002580908F00A6B05C /* SettingsTableViewCell.swift */; };
+		BFD50B042580B33700A6B05C /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD50B032580B33700A6B05C /* MeetingViewController.swift */; };
 		BFF42865257DB0060024D927 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF42864257DB0060024D927 /* AppDelegate.swift */; };
 		BFF42867257DB0060024D927 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF42866257DB0060024D927 /* SceneDelegate.swift */; };
 		BFF42869257DB0060024D927 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF42868257DB0060024D927 /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		BFCF8B62257DB86D00CA8808 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BFD0F4BB257DCF5E00F97441 /* CreateOrJoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrJoinViewController.swift; sourceTree = "<group>"; };
 		BFD50B002580908F00A6B05C /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		BFD50B032580B33700A6B05C /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
 		BFF42861257DB0060024D927 /* study-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "study-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFF42864257DB0060024D927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFF42866257DB0060024D927 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				BFF42864257DB0060024D927 /* AppDelegate.swift */,
 				BFF42866257DB0060024D927 /* SceneDelegate.swift */,
 				BFD0F4BB257DCF5E00F97441 /* CreateOrJoinViewController.swift */,
+				BFD50B032580B33700A6B05C /* MeetingViewController.swift */,
 				BF79D6F625805A1E00988C97 /* SettingsViewController.swift */,
 				BFD50B002580908F00A6B05C /* SettingsTableViewCell.swift */,
 				BF79D6F92580660300988C97 /* Setting.swift */,
@@ -216,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFD50B042580B33700A6B05C /* MeetingViewController.swift in Sources */,
 				BFCF8B63257DB86D00CA8808 /* NetworkManager.swift in Sources */,
 				BFF42869257DB0060024D927 /* ViewController.swift in Sources */,
 				BFD50B012580908F00A6B05C /* SettingsTableViewCell.swift in Sources */,

@@ -15,9 +15,9 @@ class SettingsViewController: UIViewController {
     // data for table
     let reuseIdentifier = "settingCellReuse"
     
-    let workDuration = Setting(title: "Work Session", type: .input)
-    let breakDuration = Setting(title: "Break Session", type: .input)
-    let numberOfSessions = Setting(title: "Number of Sessions", type: .input)
+    let workDuration = Setting(title: "Work Session", type: .inputTime)
+    let breakDuration = Setting(title: "Break Session", type: .inputTime)
+    let numberOfSessions = Setting(title: "Number of Sessions", type: .inputNumSessions)
     let optionalMute = Setting(title: "Let users unmute", type: .toggle)
     
     var settings: [Setting]!
@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController {
         NSLayoutConstraint.activate([
             settingsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             settingsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            settingsTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            settingsTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             settingsTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }

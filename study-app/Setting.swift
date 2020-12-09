@@ -8,7 +8,8 @@
 import Foundation
 
 enum settingType {
-    case input
+    case inputTime
+    case inputNumSessions
     case toggle
 }
 

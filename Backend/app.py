@@ -24,17 +24,14 @@ def failure_response(message, code=404):
 
 
 @app.route("/")
-def hello():
-    key = api_key
-    session_id = session.session_id
-    token = opentok.generate_token(session_id)
-    return render_template('index.html', api_key=key, session_id=session_id, token=token)
+
+
 
 #Create a session and add creator to session
-#Might Change this from using user_id in route to not, depending on how we want to handle 
-@app.route("/session/<int:user_id>/", ["POST"])
+@app.route("/session/", ["POST"])
 def create_session(user_id):
-    user = helper.get_user_by_id(user_id)
+    #Get user by auth token? 
+    # user = get_user_by_session_token(session_token)
     if user is None:
         failure_response("Invalid user")
     #Create new session in OpenTok
@@ -58,7 +55,8 @@ def create_session(user_id):
         'token': token 
     })
 
-@app.route("/session/<int:session_id>/")
+@app.route("/session/", ["DELETE"])
+def delete_session(session_id):
 
 
 if __name__ == "__main__":

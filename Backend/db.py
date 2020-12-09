@@ -5,6 +5,7 @@ db = SQLAlchemy()
 class User:
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
+  
 
 class Session:
     __tablename__ = 'session'

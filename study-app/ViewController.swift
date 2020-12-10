@@ -11,6 +11,7 @@ class ViewController: UIViewController {
 
     var nameLabel: UILabel!
     var emailLabel: UILabel!
+    var tomatoLogo: UIImageView!
     var emailField: UITextField!
     var passwordLabel: UILabel!
     var passwordField: UITextField!
@@ -47,44 +48,50 @@ class ViewController: UIViewController {
     func setupViews() {
         
         nameLabel = UILabel()
-        nameLabel.text = "Sign In"
+        nameLabel.text = "Pomodoro with Friends"
         nameLabel.textColor = UIColor.black
         nameLabel.textAlignment = NSTextAlignment.center
         nameLabel.font = UIFont(name: "HelveticaNeue-Light", size: 30)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameLabel)
         
-        emailLabel = UILabel()
-        emailLabel.text = "Email:"
-        emailLabel.textColor = UIColor.black
-        emailLabel.textAlignment = NSTextAlignment.left
-        emailLabel.font = UIFont(name: "HelveticaNeue-Light", size: 10)
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emailLabel)
+        tomatoLogo = UIImageView()
+        tomatoLogo.translatesAutoresizingMaskIntoConstraints = false
+        tomatoLogo.contentMode = .scaleAspectFit
+        tomatoLogo.image = UIImage(named: "tomatoicon")
+        view.addSubview(tomatoLogo)
         
-        emailField = UITextField()
-        emailField.text = "Enter your Email"
-        emailField.textColor = UIColor.black
-        emailField.textAlignment = NSTextAlignment.left
-        emailField.font = UIFont(name: "HelveticaNeue-Light", size: 10)
-        emailField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emailField)
+        //emailLabel = UILabel()
+        //emailLabel.text = "Email:"
+        //emailLabel.textColor = UIColor.black
+        //emailLabel.textAlignment = NSTextAlignment.left
+        //emailLabel.font = UIFont(name: "HelveticaNeue-Light", size: 10)
+        //emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        //view.addSubview(emailLabel)
         
-        passwordLabel = UILabel()
-        passwordLabel.text = "Password:"
-        passwordLabel.textColor = UIColor.black
-        passwordLabel.textAlignment = NSTextAlignment.left
-        passwordLabel.font = UIFont(name: "HelveticaNeue-Light", size: 10)
-        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordLabel)
+        //emailField = UITextField()
+        //emailField.text = "Enter your Email"
+        //emailField.textColor = UIColor.black
+        //emailField.textAlignment = NSTextAlignment.left
+        //emailField.font = UIFont(name: "HelveticaNeue-Light", size: 10)
+        //emailField.translatesAutoresizingMaskIntoConstraints = false
+        //view.addSubview(emailField)
         
-        passwordField = UITextField()
-        passwordField.text = "Enter your Password"
-        passwordField.textColor = UIColor.black
-        passwordField.textAlignment = NSTextAlignment.left
-        passwordField.font = UIFont(name: "HelveticaNeue-Light", size: 10)
-        passwordField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordField)
+        //passwordLabel = UILabel()
+        //passwordLabel.text = "Password:"
+        //passwordLabel.textColor = UIColor.black
+        //passwordLabel.textAlignment = NSTextAlignment.left
+        //passwordLabel.font = UIFont(name: "HelveticaNeue-Light", size: 10)
+        //passwordLabel.translatesAutoresizingMaskIntoConstraints = false
+        //view.addSubview(passwordLabel)
+        
+        //passwordField = UITextField()
+        //passwordField.text = "Enter your Password"
+        //passwordField.textColor = UIColor.black
+        //passwordField.textAlignment = NSTextAlignment.left
+        //passwordField.font = UIFont(name: "HelveticaNeue-Light", size: 10)
+        //passwordField.translatesAutoresizingMaskIntoConstraints = false
+        //view.addSubview(passwordField)
         
         loginButton = UIButton(type: .roundedRect)
         loginButton.setTitle("Login", for: .normal)
@@ -114,11 +121,18 @@ class ViewController: UIViewController {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-        nameLabel.heightAnchor.constraint(equalToConstant: 40),
-        nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 140)
+        tomatoLogo.heightAnchor.constraint(equalToConstant: 200),
+        tomatoLogo.widthAnchor.constraint(equalToConstant: 220),
+        tomatoLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
+        tomatoLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        // *createButton
+        
+        NSLayoutConstraint.activate([
+        nameLabel.heightAnchor.constraint(equalToConstant: 30),
+            nameLabel.topAnchor.constraint(equalTo: tomatoLogo.bottomAnchor, constant: 40),
+            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
         NSLayoutConstraint.activate([
             loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)

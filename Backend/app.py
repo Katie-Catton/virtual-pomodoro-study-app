@@ -3,6 +3,8 @@ from opentok import OpenTok
 import os
 from db import Session, User
 import helper
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 try:
     os.environ['API_KEY'] = '47019364'
@@ -25,38 +27,72 @@ def failure_response(message, code=404):
 
 @app.route("/")
 
+#Get a session
+@app.route("/session/<int:session_id>/")
+def get_session(session_id):
+    session = Session.query.filter_by(session_id=session_id)
+    if session is None:
+        return failure_response("Session id invalid")
+    else:
+        return success_response(session.serialize())
 
 
 #Create a session and add creator to session
-@app.route("/session/", ["POST"])
+@app.route("/session/", methods=["POST"])
 def create_session(user_id):
-    #Get user by auth token? 
-    # user = get_user_by_session_token(session_token)
+    user = User.query.filter_by(id=user_id).first()
     if user is None:
         failure_response("Invalid user")
+
     #Create new session in OpenTok
     session = opentok.create_session()
-    key = api_key
     session_id = session.session_id
     token = opentok.generate_token(session_id)
 
     #Create new Session Object 
-    new_session = Session(session_id=session_id)
+    body = json.loads(request.data)
+    new_session = Session(session_id=session_id, code=body.get('code'))
     #Add creator to Session Object
-    new_session.append(user)
+    new_session.users.append(user)
     #Push changes to database
     db.session.add(new_session)
     db.session.commit()
 
-    #Gve client parameters necessary to connect
+    #Give client parameters necessary to connect
     return success_response({
         'key': api_key,
         'session_id': session_id,
         'token': token 
     })
 
-@app.route("/session/", ["DELETE"])
+
+@app.route("/session/<int:session_id/", ["DELETE"])
 def delete_session(session_id):
+    session = Session.query.filter_by(session_id=session_id)
+    if session is None:
+        return failure_response("Session id invalid")
+    else:
+        db.session.delete(session)
+        db.session.commit()
+        return success_response(session.serialize())
+
+
+# @app.route("/signin", methods=["POST"])
+# def sign_in():
+#     body = json.loads(request.data)
+#     token = body.get('user_token')
+#     try:
+#         # Specify the CLIENT_ID of the app that accesses the backend
+#         id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+#         user_id = id_info['sub']
+#         user = User.query.filter_by(user_id=user_id).first()
+#         if user is None:
+#             user = 
+
+# @app.route("/join/")
+# def join_session(code):
+#     session = Session.query.filter_by(code=code).first()
+#     if session is not None:
 
 
 if __name__ == "__main__":

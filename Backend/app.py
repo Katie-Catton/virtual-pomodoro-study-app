@@ -1,10 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request 
 from opentok import OpenTok
 import os
-from db import Session, User
+from db import Room, User, db
 import helper
-from google.oauth2 import id_token
-from google.auth.transport import requests
+import json
+#from google.oauth2 import id_token
+#from google.auth.transport import requests
+
 
 try:
     os.environ['API_KEY'] = '47019364'
@@ -14,7 +16,16 @@ try:
 except Exception:
     raise Exception('You must define API_KEY and API_SECRET environment variables')
 
+
+db_filename = "pomodoro.db"
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_ECHO"] = True
+
+db.init_app(app)
+with app.app_context():
+    db.create_all()
 opentok = OpenTok(api_key, api_secret)
 #Responses
 def success_response(data, code=200):
@@ -27,20 +38,29 @@ def failure_response(message, code=404):
 
 @app.route("/")
 
+@app.route("/users/",methods = ["POST"])
+def create_user():
+    body = json.loads(request.data)
+    user = User(user_id=body.get('user_id'))
+    db.session.add(user)
+    db.session.commit()
+    return success_response(user.serialize())
+
+
 #Get a session
-@app.route("/session/<int:session_id>/")
-def get_session(session_id):
-    session = Session.query.filter_by(session_id=session_id)
+@app.route("/session/<string:code>/")
+def get_session(code):
+    session = Room.query.filter_by(code=code).first()
     if session is None:
-        return failure_response("Session id invalid")
+        return failure_response("Room code invalid")
     else:
         return success_response(session.serialize())
 
 
 #Create a session and add creator to session
-@app.route("/session/", methods=["POST"])
+@app.route("/session/<int:user_id>/", methods=["POST"])
 def create_session(user_id):
-    user = User.query.filter_by(id=user_id).first()
+    user = User.query.filter_by(user_id=user_id).first()
     if user is None:
         failure_response("Invalid user")
 
@@ -51,7 +71,7 @@ def create_session(user_id):
 
     #Create new Session Object 
     body = json.loads(request.data)
-    new_session = Session(session_id=session_id, code=body.get('code'))
+    new_session = Room(session_id=session_id, code=body.get('code'))
     #Add creator to Session Object
     new_session.users.append(user)
     #Push changes to database
@@ -66,11 +86,11 @@ def create_session(user_id):
     })
 
 
-@app.route("/session/<int:session_id/", ["DELETE"])
-def delete_session(session_id):
-    session = Session.query.filter_by(session_id=session_id)
+@app.route("/session/<string:code>/", methods=["DELETE"])
+def delete_session(code):
+    session = Room.query.filter_by(code=code).first()
     if session is None:
-        return failure_response("Session id invalid")
+        return failure_response("Session code invalid")
     else:
         db.session.delete(session)
         db.session.commit()
@@ -93,6 +113,27 @@ def delete_session(session_id):
 # def join_session(code):
 #     session = Session.query.filter_by(code=code).first()
 #     if session is not None:
+
+#@app.route("/login/", methods=["POST"])
+#def login():
+#    body = json.loads(request.data)
+#    email = body.get("email")
+#   password = body.get("password")
+#    if email is None  or password is None:
+#       return json.dumps({"error": "Invalid email or password"})
+
+#    was_success, user = users_dao.verify_credentials(email,password)
+
+#    if not was_success:
+#        return json.dumps({"error": "Incorrect email/password"})
+    
+#    return json.dumps({
+#        "session_token":user.session_token,
+#        "session_expiration": str(user.session_expiration),
+#        "update_token": user.update_token
+
+#    })
+
 
 
 if __name__ == "__main__":

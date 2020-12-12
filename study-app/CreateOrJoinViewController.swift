@@ -14,15 +14,15 @@ class CreateOrJoinViewController: UIViewController {
     var tomatoImage: UIImageView!
     // welcome text
     var welcomeLabel: UILabel!
-    // messgae that provides basic instructions for user to create or join a session
+    // messgae that provides basic instructions for user to create or join a meeting
     var instructionText: UITextView!
-    // button to create a session
+    // button to create a meeting
     var createButton: UIButton!
     // separates create/join options
     var separateButtonText: UILabel!
-    // button to join a session
+    // button to join a meeting
     var joinButton: UIButton!
-    // field to input a "room code" to join a session
+    // field to input a "room code" to join a meeting
     var inputCode: UITextField!
     // error message if room code is incorrect
     var incorrectLabel: UILabel!
@@ -34,6 +34,8 @@ class CreateOrJoinViewController: UIViewController {
         navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
         setupViews()
         setupConstraints()
+        
+        // TODO handle keyboard position covering UITextField
     }
     
     func setupViews() {

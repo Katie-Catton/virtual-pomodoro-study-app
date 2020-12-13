@@ -63,6 +63,7 @@ def create_session():
     num_sessions = body.get("num_sessions")
     work_length = body.get("work_length")
     break_length = body.get("break_length")
+    room_length = num_sessions*(work_length+break_length)
     
     user = User.query.filter_by(user_id=body.get('user_id')).first()
     
@@ -77,7 +78,7 @@ def create_session():
 
     # Create new OpenTok session
     opentok_id = opentok.create_session().session_id
-    token = opentok.generate_token(opentok_id)
+    token = opentok.generate_token(opentok_id, expire_time=int(time.time()) + room_length)
 
     # Create new Room Object 
     body = json.loads(request.data)

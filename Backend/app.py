@@ -59,11 +59,23 @@ def get_room(code):
 
 # Create room and add creator to session
 @app.route("/rooms/", methods=["POST"])
-def create_session(user_id):
+def create_session():
     body = json.loads(request.data)
+
+    num_sessions = body.get("num_sessions")
+    work_length = body.get("work_length")
+    break_length = body.get("break_length")
+    
     user = User.query.filter_by(user_id=body.get('user_id')).first()
+    
     if user is None:
         failure_response("User invalid")
+    if num_sessions is None:
+        failure_response("Must enter number of sessions")
+    if work_length is None:
+        failure_response("Must enter length of work periods")
+    if break_length is None:
+        failure_response("Must enter length of break periods")
 
     # Create new OpenTok session
     opentok_id = opentok.create_session().session_id
@@ -71,7 +83,12 @@ def create_session(user_id):
 
     # Create new Room Object 
     body = json.loads(request.data)
-    new_room = Room(opentok_id=opentok_id, code=body.get('code'))
+    new_room = Room(opentok_id=opentok_id, 
+                    code=body.get('code'),
+                    num_sessions=body.get('num_sessions'),
+                    work_length=body.get('work_length'),
+                    break_length=body.get('break_length')
+                    )
 
     # Add creator to Room Object
     new_room.users.append(user)
@@ -131,10 +148,18 @@ def join_session():
     code = body.get('code')
     user = User.query.filter_by(user_id=body.get('user_id')).first()
     room = Room.query.filter_by(code=code).first()
+
+    token = opentok.generate_token(room.opentok_id,
+                                    expire_time=int(time.time()) + room.room_length)
+    
     if room is not None:
         if user is not None:
             room.users.append(user)
-            return success_response(room.serialize())
+            return success_response({
+                'key': api_key,
+                'opentok_id': room.opentok_id,
+                'token': token 
+            })
         else:
             return failure_response("User id invalid")
     else:

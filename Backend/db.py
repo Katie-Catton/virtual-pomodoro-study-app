@@ -11,7 +11,7 @@ db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, unique=True, nullable=False)
+    username = db.Column(db.String, unique=True, nullable=False)
     room_id = db.Column(db.Integer, db.ForeignKey('room.id'), nullable=True)
     
     # User session information
@@ -21,14 +21,14 @@ class User(db.Model):
 
 
     def __init__(self, **kwargs):
-        self.user_id = kwargs.get('user_id')
+        self.username = kwargs.get('user_id')
         self.room_id = None 
         self.renew_session()
 
 
     def serialize(self):
         return {
-            "user_id": self.user_id
+            "username": self.username
         }
 
 
@@ -55,7 +55,7 @@ class User(db.Model):
 class Room(db.Model):
     __tablename__ = 'room'
     id = db.Column(db.Integer, primary_key=True)
-    opentok_id = db.Column(db.Integer, nullable=False)
+    opentok_id = db.Column(db.String, nullable=False)
     code = db.Column(db.String, unique=True, nullable=False)
 
     # Customizable features

@@ -1,0 +1,101 @@
+Get all rooms
+
+GET /rooms/
+
+Success response
+{
+    “success”: true,
+    "data": [
+        {
+        "opentok_id": <OPENTOK SESSION ID>,
+        "code": <USER INPUT>,
+        "num_sessions": <USER INPUT>,
+        "work_length": <USER INPUT>,
+        "break_length": <USER INPUT>,
+        "users": [
+            {
+            "username": <USERNAME>
+            },
+            ...
+        ]
+        },
+        ...
+    ]
+}
+
+
+Get a room
+
+GET /rooms/{code}/
+
+Success response
+{
+    “success”: true,
+    "data": <ROOM WITH CODE {code}>
+}
+
+Create a room
+
+POST /rooms/
+
+Request
+{
+  "username": <USERNAME>,
+  "num_sessions": <USER INPUT>,
+  "work_length": <USER INPUT>,
+  "break_length": <USER INPUT>
+}
+
+Success response
+{
+    "success": true,
+    "data": {
+        "key": <API KEY>,
+        "opentok_id": <OPENTOK SESSION ID>,
+        "token": <CLIENT TOKEN FOR CONNECTING TO SESSION>
+    }
+}
+
+Delete a room 
+
+DELETE /rooms/{code}/
+
+Success response
+{
+    “success”: true,
+    "data": <ROOM WITH CODE {code}>
+}
+
+User signs in
+
+POST /signin/
+
+Request
+{
+    "user_token": <GOOGLE USER TOKEN>
+}
+
+Success response
+{
+    "session_token": <USER SESSION TOKEN>,
+    "session_expiration": <USER SESSION EXPIRATION>,
+    "update_token": <USER UPDATE TOKEN>
+}
+
+User joins a room
+
+POST /join/
+
+Request
+{
+    "code": <ROOM CODE>,
+    "username": <USERNAME>
+}
+
+Success response 
+{
+    'key': <API KEY>,
+    'opentok_id': <OPENTOK SESSION ID>,
+    'token': <CLIENT TOKEN FOR CONNECTING TO SESSION> 
+}
+

@@ -50,7 +50,7 @@ def get_rooms():
 def get_room(code):
     room = Room.query.filter_by(code=code).first()
     if room is None:
-        return failure_response("Room code invalid")
+        return failure_response("Room invalid")
     else:
         return success_response(room.serialize())
 
@@ -65,7 +65,7 @@ def create_session():
     break_length = body.get("break_length")
     room_length = num_sessions*(work_length+break_length)
     
-    user = User.query.filter_by(user_id=body.get('user_id')).first()
+    user = User.query.filter_by(username=body.get('username')).first()
     
     if user is None:
         failure_response("User invalid")
@@ -109,7 +109,7 @@ def create_session():
 def delete_room(code):
     room = Room.query.filter_by(code=code).first()
     if room is None:
-        return failure_response("Room code invalid")
+        return failure_response("Room invalid")
     else:
         db.session.delete(room)
         db.session.commit()
@@ -124,10 +124,10 @@ def sign_in():
     try:
         # Specify the CLIENT_ID of the app that accesses the backend
         id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
-        user_id = id_info['sub']
-        user = User.query.filter_by(user_id=user_id).first()
+        username = id_info['sub']
+        user = User.query.filter_by(username=username).first()
         if user is None:
-            user = User(user_id)
+            user = User(username)
             db.session.add(user)
             db.session.commit()
         data = json.dumps({
@@ -145,7 +145,7 @@ def sign_in():
 def join_session():
     body = json.loads(request.data)
     code = body.get('code')
-    user = User.query.filter_by(user_id=body.get('user_id')).first()
+    user = User.query.filter_by(username=body.get('username')).first()
     room = Room.query.filter_by(code=code).first()
 
     token = opentok.generate_token(room.opentok_id,
@@ -160,9 +160,9 @@ def join_session():
                 'token': token 
             })
         else:
-            return failure_response("User id invalid")
+            return failure_response("User invalid")
     else:
-        return failure_response("Room id invalid")
+        return failure_response("Room invalid")
 
 
 ### Only necessary for testing ###
@@ -171,7 +171,7 @@ def join_session():
 @app.route("/users/", methods = ["POST"])
 def create_user():
     body = json.loads(request.data)
-    user = User(user_id=body.get('user_id'))
+    user = User(username=body.get('username'))
     db.session.add(user)
     db.session.commit()
     return success_response(user.serialize())

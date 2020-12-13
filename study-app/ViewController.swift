@@ -48,10 +48,10 @@ class ViewController: UIViewController {
     func setupViews() {
         
         nameLabel = UILabel()
-        nameLabel.text = "Pomodoro with Friends"
+        nameLabel.text = "Pomodoro with Friends!"
         nameLabel.textColor = UIColor.black
         nameLabel.textAlignment = NSTextAlignment.center
-        nameLabel.font = UIFont(name: "HelveticaNeue-Light", size: 30)
+        nameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 25)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameLabel)
         
@@ -96,12 +96,14 @@ class ViewController: UIViewController {
         loginButton = UIButton(type: .roundedRect)
         loginButton.setTitle("Login", for: .normal)
         loginButton.sizeToFit()
-        loginButton.setTitleColor(.white, for: .normal)
         loginButton.setTitleColor(UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0), for: .normal)
-        loginButton.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1.0)
+        loginButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 25)
+        loginButton.backgroundColor = .white
+        loginButton.layer.borderWidth = 1
+        loginButton.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         loginButton.layer.shadowColor = UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0).cgColor
-        loginButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        loginButton.layer.shadowOpacity = 0.5
+        loginButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+        loginButton.layer.shadowOpacity = 0.25
         loginButton.layer.shadowRadius = 0
         loginButton.layer.masksToBounds = false
         loginButton.layer.cornerRadius = 29
@@ -128,8 +130,8 @@ class ViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-        nameLabel.heightAnchor.constraint(equalToConstant: 30),
-            nameLabel.topAnchor.constraint(equalTo: tomatoLogo.bottomAnchor, constant: 40),
+            nameLabel.heightAnchor.constraint(equalToConstant: 30),
+            nameLabel.topAnchor.constraint(equalTo: tomatoLogo.bottomAnchor, constant: 26),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         

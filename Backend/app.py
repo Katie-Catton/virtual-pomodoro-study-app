@@ -6,13 +6,11 @@ import helper
 import json
 from google.oauth2 import id_token
 from google.auth.transport import requests
-
-
+from dotenv import load_dotenv
+load_dotenv()
 try:
-    os.environ['API_KEY'] = '47019364'
-    os.environ['API_SECRET'] = '02170d486e83efebec4ff23408a8958278b59cb6'
-    api_key = os.environ['API_KEY']
-    api_secret = os.environ['API_SECRET']
+    api_key = os.environ.get('API_KEY')
+    api_secret = os.environ.get('API_SECRET')
 except Exception:
     raise Exception('You must define API_KEY and API_SECRET environment variables')
 

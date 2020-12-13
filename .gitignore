@@ -1,2 +1,5 @@
 Backend/venv/
 Backend/__pyache__/
+.env
+*.db
+

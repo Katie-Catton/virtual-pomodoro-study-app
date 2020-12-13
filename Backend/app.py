@@ -57,7 +57,7 @@ def get_room(code):
 
 # Create room and add creator to session
 @app.route("/rooms/", methods=["POST"])
-def create_session(user_id):
+def create_session():
     body = json.loads(request.data)
     user = User.query.filter_by(user_id=body.get('user_id')).first()
     if user is None:

@@ -10,6 +10,7 @@
 		0D0AE52850C8B2E2D5A67CDC /* Pods_study_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A72EEB6C87313D08341AD29 /* Pods_study_app.framework */; };
 		BF79D6F725805A1F00988C97 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF79D6F625805A1E00988C97 /* SettingsViewController.swift */; };
 		BF79D6FA2580660300988C97 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF79D6F92580660300988C97 /* Setting.swift */; };
+		BFBB8C6125857F1C00034944 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBB8C6025857F1C00034944 /* Models.swift */; };
 		BFCF8B63257DB86D00CA8808 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF8B62257DB86D00CA8808 /* NetworkManager.swift */; };
 		BFD0F4BC257DCF5E00F97441 /* CreateOrJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD0F4BB257DCF5E00F97441 /* CreateOrJoinViewController.swift */; };
 		BFD50B012580908F00A6B05C /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD50B002580908F00A6B05C /* SettingsTableViewCell.swift */; };
@@ -26,6 +27,7 @@
 		4A72EEB6C87313D08341AD29 /* Pods_study_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_study_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF79D6F625805A1E00988C97 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BF79D6F92580660300988C97 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		BFBB8C6025857F1C00034944 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		BFCF8B62257DB86D00CA8808 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BFD0F4BB257DCF5E00F97441 /* CreateOrJoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrJoinViewController.swift; sourceTree = "<group>"; };
 		BFD50B002580908F00A6B05C /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				BF79D6F92580660300988C97 /* Setting.swift */,
 				BFF42868257DB0060024D927 /* ViewController.swift */,
 				BFCF8B62257DB86D00CA8808 /* NetworkManager.swift */,
+				BFBB8C6025857F1C00034944 /* Models.swift */,
 				BFF4286D257DB00A0024D927 /* Assets.xcassets */,
 				BFF4286F257DB00A0024D927 /* LaunchScreen.storyboard */,
 				BFF42872257DB00A0024D927 /* Info.plist */,
@@ -228,6 +231,7 @@
 				BF79D6FA2580660300988C97 /* Setting.swift in Sources */,
 				BFF42867257DB0060024D927 /* SceneDelegate.swift in Sources */,
 				BF79D6F725805A1F00988C97 /* SettingsViewController.swift in Sources */,
+				BFBB8C6125857F1C00034944 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

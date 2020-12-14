@@ -94,9 +94,8 @@ class SettingsTableViewCell: UITableViewCell {
             ])
             
             NSLayoutConstraint.activate([
-                toggleMute.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
+                toggleMute.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
                 toggleMute.leadingAnchor.constraint(equalTo: unmuteLabel.trailingAnchor, constant: 20),
-                toggleMute.centerYAnchor.constraint(equalTo: unmuteLabel.centerYAnchor, constant: 5)
             ])
         }
     }

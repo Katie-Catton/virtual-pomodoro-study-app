@@ -27,9 +27,9 @@ class MeetingViewController: UIViewController {
     }
     
     
-    private func startTimer() {
-        self.totalTime = 0
-    }
+//    private func startTimer() {
+//        self.totalTime = 0
+//    }
     
     func setupViews() {
         
@@ -65,7 +65,7 @@ class MeetingViewController: UIViewController {
         
         
         inviteCode = UITextField()
-        inviteCode.text = //pull from settings
+        inviteCode.text = ""//pull from settings
         inviteCode.isUserInteractionEnabled = false
         inviteCode.layer.cornerRadius = 10.0
         inviteCode.clipsToBounds = true
@@ -81,13 +81,13 @@ class MeetingViewController: UIViewController {
     func setupConstraints() {
     }
     
-    func startTimerButtonPress(sender: startTimerButton) {
-        timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-    }
-    func pauseTimerButtonPress(sender: pauseTimerButton) {
-        timer.invalidate()
-        }
+//    func startTimerButtonPress(sender: startTimerButton) {
+//        timer.invalidate()
+//        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+//    }
+//    func pauseTimerButtonPress(sender: pauseTimerButton) {
+//        timer.invalidate()
+//        }
         
         
     func update() {

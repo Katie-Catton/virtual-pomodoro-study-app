@@ -123,10 +123,10 @@ class ViewController: UIViewController {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-        tomatoLogo.heightAnchor.constraint(equalToConstant: 200),
-        tomatoLogo.widthAnchor.constraint(equalToConstant: 220),
-        tomatoLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
-        tomatoLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            tomatoLogo.heightAnchor.constraint(equalToConstant: 200),
+            tomatoLogo.widthAnchor.constraint(equalToConstant: 220),
+            tomatoLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
+            tomatoLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([

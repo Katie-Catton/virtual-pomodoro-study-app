@@ -57,11 +57,13 @@ class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     opentok_id = db.Column(db.String, nullable=False)
     code = db.Column(db.String, unique=True, nullable=False)
+    
 
     # Customizable features
     num_sessions = db.Column(db.Integer, nullable=False)
     work_length = db.Column(db.Integer, nullable=False)
     break_length = db.Column(db.Integer, nullable=False)
+    paused = db.Column(db.Boolean, nullable = False)
 
     room_length = db.Column(db.Integer)
     users = db.relationship('User', cascade=False)
@@ -74,6 +76,7 @@ class Room(db.Model):
         self.work_length = kwargs.get('work_length')
         self.break_length = kwargs.get('break_length')
         self.room_length = self.num_sessions*(self.work_length+self.break_length)
+        self.paused = True
     
 
     def serialize(self):
@@ -83,7 +86,8 @@ class Room(db.Model):
             'num_sessions': self.num_sessions,
             'work_length': self.work_length,
             'break_length': self.break_length,
-            'users': [user.serialize() for user in self.users]
+            'users': [user.serialize() for user in self.users],
+            'paused': self.paused
         }
 
 

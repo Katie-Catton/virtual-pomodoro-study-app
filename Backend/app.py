@@ -3,6 +3,7 @@ from opentok import OpenTok
 import os
 from db import Room, User, db
 import helper
+import time 
 import json
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -103,6 +104,19 @@ def create_session():
         'token': token 
     }, 201)
 
+#Pause/unpauses room 
+@app.route("/rooms/<string:code>/pause/", methods=["POST"])
+def pause_room(code):
+    room = Room.query.filter_by(code=code).first()
+    if room is None:
+        return failure_response("Room code invalid")
+    else:
+        if (room.paused):
+            room.paused = False
+        else:
+            room.paused = True
+        db.session.commit()
+        return success_response(room.serialize())
 
 # Delete room
 @app.route("/rooms/<string:code>/", methods=["DELETE"])

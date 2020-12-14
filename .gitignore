@@ -3,3 +3,4 @@ Backend/__pyache__/
 .env
 *.db
 
+Backend/pomodoro.db

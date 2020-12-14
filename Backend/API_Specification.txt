@@ -17,7 +17,8 @@ Success response
             "username": <USERNAME>
             },
             ...
-        ]
+        ],
+        "paused": <USER INPUT>
         },
         ...
     ]
@@ -41,6 +42,7 @@ POST /rooms/
 Request
 {
   "username": <USERNAME>,
+  "code": <USER INPUT>,
   "num_sessions": <USER INPUT>,
   "work_length": <USER INPUT>,
   "break_length": <USER INPUT>
@@ -55,6 +57,18 @@ Success response
         "token": <CLIENT TOKEN FOR CONNECTING TO SESSION>
     }
 }
+
+
+Pause/Unpause a room 
+
+POST /rooms/{code}/pause/
+
+Success response
+{
+    "success": true,
+    "data": <ROOM WITH CODE {code}>
+}
+
 
 Delete a room 
 

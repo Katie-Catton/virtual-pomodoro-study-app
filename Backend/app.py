@@ -12,6 +12,7 @@ load_dotenv()
 try:
     api_key = os.environ.get('API_KEY')
     api_secret = os.environ.get('API_SECRET')
+    client_id = os.environ.get('CLIENT_ID')
 except Exception:
     raise Exception('You must define API_KEY and API_SECRET environment variables')
 
@@ -137,7 +138,7 @@ def sign_in():
     token = body.get('user_token')
     try:
         # Specify the CLIENT_ID of the app that accesses the backend
-        id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+        id_info = id_token.verify_oauth2_token(token, requests.Request(), client_id)
         username = id_info['sub']
         user = User.query.filter_by(username=username).first()
         if user is None:

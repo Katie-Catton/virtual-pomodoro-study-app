@@ -1,4 +1,4 @@
-//
+
 //  MeetingViewController.swift
 //  study-app
 //
@@ -15,8 +15,8 @@ class MeetingViewController: UIViewController {
     var startTimerButton: UIButton!
     var timeRemaining: UILabel!
     var inProgress: UILabel!
-    var inviteCode: UILabel!
-
+    var inviteCodeText: UILabel!
+    var inviteCode: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +43,39 @@ class MeetingViewController: UIViewController {
         timeRemaining.text = "Time remaining:"
         timeRemaining.textColor = UIColor.black
         timeRemaining.textAlignment = NSTextAlignment.center
-        timeRemaining.font = UIFont(name: "HelveticaNeue-Light", size: 25)
+        timeRemaining.font = UIFont(name: "HelveticaNeue-Light", size: 20)
         timeRemaining.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeRemaining)
         
+        inProgress = UILabel()
+        inProgress.text = "In Progress"
+        inProgress.textColor = UIColor.black
+        inProgress.textAlignment = NSTextAlignment.center
+        inProgress.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        inProgress.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(inProgress)
+        
+        inviteCodeText = UILabel()
+        inviteCodeText.text = "Invite Code"
+        inviteCodeText.textColor = UIColor.black
+        inviteCodeText.textAlignment = NSTextAlignment.center
+        inviteCodeText.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+        inviteCodeText.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(inviteCodeText)
         
         
+        inviteCode = UITextField()
+        inviteCode.text = //pull from settings
+        inviteCode.isUserInteractionEnabled = false
+        inviteCode.layer.cornerRadius = 10.0
+        inviteCode.clipsToBounds = true
+        inviteCode.textColor = UIColor.black
+        inviteCode.textAlignment = NSTextAlignment.center
+        inviteCode.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+        inviteCode.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(inviteCode)
         
+    
     }
     
     func setupConstraints() {
@@ -59,6 +85,11 @@ class MeetingViewController: UIViewController {
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
+    func pauseTimerButtonPress(sender: pauseTimerButton) {
+        timer.invalidate()
+        }
+        
+        
     func update() {
         
         if(time > 0){

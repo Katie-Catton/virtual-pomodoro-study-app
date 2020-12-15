@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var passwordLabel: UILabel!
     var passwordField: UITextField!
     var loginButton: GIDSignInButton!
-    var signUpButton: UIButton!
+    //var signUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,12 +100,12 @@ class ViewController: UIViewController {
         view.addSubview(loginButton)
 
         
-        signUpButton = UIButton()
-        signUpButton.setTitle("Sign Up", for: .normal)
-        signUpButton.setTitleColor(.black, for: .normal)
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        //signUpButton = UIButton()
+       // signUpButton.setTitle("Sign Up", for: .normal)
+       // signUpButton.setTitleColor(.black, for: .normal)
+       // signUpButton.translatesAutoresizingMaskIntoConstraints = false
         //signUpButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
-        view.addSubview(signUpButton)
+      //  view.addSubview(signUpButton)
     }
     
     func setupConstraints() {
@@ -129,10 +129,10 @@ class ViewController: UIViewController {
         ])
               
 //              // *joinButton
-        NSLayoutConstraint.activate([
-            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15),
-            signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+        //NSLayoutConstraint.activate([
+           // signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15),
+        //    signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+       // ])
     }
     
     func Login() {

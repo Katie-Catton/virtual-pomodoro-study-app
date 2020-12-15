@@ -42,13 +42,14 @@ class ViewController: UIViewController {
     
     // modifies default navigation bar
     func setupNavigationBar() {
-        navigationController?.navigationBar.backgroundColor = .white
+        //navigationController?.navigationBar.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        navigationController?.navigationBar.tintColor = .black
+        //navigationController?.navigationBar.tintColor = .black
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Login", style: .plain, target: self, action: nil)
-        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
+        self.navigationController?.navigationBar.topItem?.title = " "
+//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Login", style: .plain, target: self, action: nil)
+//        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
     }
     
     func setupViews() {
@@ -99,11 +100,9 @@ class ViewController: UIViewController {
         //passwordField.translatesAutoresizingMaskIntoConstraints = false
         //view.addSubview(passwordField)
         
-        buttonBox = UIView()
-        view.addSubview(buttonBox)
         
         loginButton = GIDSignInButton()
-        buttonBox.addSubview(loginButton)
+        view.addSubview(loginButton)
 
         
         //signUpButton = UIButton()
@@ -130,10 +129,10 @@ class ViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-            buttonBox.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 115),
-            buttonBox.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonBox.heightAnchor.constraint(equalToConstant: 51),
-            buttonBox.widthAnchor.constraint(equalToConstant: 220)
+            loginButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 115),
+            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loginButton.heightAnchor.constraint(equalToConstant: 51),
+            loginButton.widthAnchor.constraint(equalToConstant: 220)
         ])
               
 //              // *joinButton

@@ -1,6 +1,6 @@
 import UIKit
-import Alamofire
 import GoogleSignIn
+import Alamofire
 
 //class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -58,36 +58,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let familyName = user.profile.familyName
         let email = user.profile.email
       // ...
+
         
         NotificationCenter.default.post(
                 name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
         
-    func getSession(userToken: String, completion: @escaping (signInReponse) -> Void) {
-            let parameters: [String: Any] = [
-                "user_token" : userToken
-            ]
-            let endpoint = "https://virtual-pomodoro.herokuapp.com/signin/"
-            AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
-                switch response.result {
-                case .success(let data):
-                    let jsonDecoder = JSONDecoder()
-                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                    if let session = try? jsonDecoder.decode(signInReponse.self, from: data) {
-                        // Instructions: Use completion to handle response
-                        let newSession = session
-                        completion(newSession)
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        }
-
-}
+//        func getSession() {
+//            NetworkManager.getSession(userToken: idToken) { signInResponse in
+//                
+//                
+//            }
+//        }
+        
+    }
+    
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
       // Perform any operations when the user disconnects from app here.
       // ...
     }
+
+
 }

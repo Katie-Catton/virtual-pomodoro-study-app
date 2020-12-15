@@ -10,6 +10,7 @@ class MeetingViewController: UIViewController {
     
     var time = 0 //pull from settings
     var timer = Timer()
+    var counter = 0
     var countDownLabel: UILabel!
     //var clockLogo: UIImageView!
     var startTimerButton: UIButton!
@@ -52,6 +53,8 @@ class MeetingViewController: UIViewController {
         timeRemaining.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeRemaining)
         
+        
+        
 //        inProgress = UILabel()
 //        inProgress.text = "In Progress"
 //        inProgress.textColor = UIColor.black
@@ -82,8 +85,13 @@ class MeetingViewController: UIViewController {
         inviteCode.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         view.addSubview(inviteCode)
         
-        startTimerButton = UIButton()
-        
+        let startImage = UIImage(contentsOfFile: "starticon")
+        startTimerButton = UIButton(type: UIButton.ButtonType.system)
+        startTimerButton.setBackgroundImage(startImage, for: .normal)
+        startTimerButton.translatesAutoresizingMaskIntoConstraints = false
+        startTimerButton.backgroundColor = .white
+        startTimerButton.addTarget(self, action: #selector(startTimerButtonPress), for: .touchUpInside)
+        view.addSubview(startTimerButton)
         
         let editImage = UIImage(named: "editicon")
         editButton = UIButton(type: UIButton.ButtonType.system)
@@ -121,38 +129,58 @@ class MeetingViewController: UIViewController {
             editButton.heightAnchor.constraint(equalToConstant: 30),
             editButton.widthAnchor.constraint(equalToConstant: 30)
         ])
+        
+        NSLayoutConstraint.activate([
+            startTimerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 33),
+            startTimerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
-//    func startTimerButtonPress(sender: startTimerButton) {
-//        timer.invalidate()
-//        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-//    }
-//    func pauseTimerButtonPress(sender: pauseTimerButton) {
-//        timer.invalidate()
+    @objc func startTimerButtonPress() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+    }
+    @objc func pauseTimerButtonPress() {
+        timer.invalidate()
+    }
+    
+    
+//    @objc func update() {
+//        
+//        
+//        if(time > 0){
+//            let minutes = String(time / 60)
+//            let seconds = String(time % 60)
+//            countDownLabel.text = minutes + ":" + seconds
+//            time -= 1
 //        }
-        
+//        else if counter != sessions {
+//            let time = breaktime
+//            counter += 1
+//            update()
+//
+//        }
+//        else {
+//            let newViewController = SettingsViewController()
+//            navigationController?.pushViewController(newViewController, animated: true)
+//        }
+//    }
+    
     @objc func pushSettings() {
         let newViewController = SettingsViewController()
         navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    
-    func update() {
-        
-        if(time > 0){
-            let minutes = String(time / 60)
-            let seconds = String(time % 60)
-            countDownLabel.text = minutes + ":" + seconds
-            time -= 1
-        }
-        else {
-            //launch Times Up screen
-        }
-    }
-    
     // Networking stuff
 //    func getRooms() {
-//        NetworkManager.getRooms()
+//        NetworkManager.getRooms { rooms in
+//            self.rooms = rooms
+//            DispatchQueue.main.async {
+//                self.roomsTableView.reloadData()
+//            }
+//
+//        }
 //    }
+    
     
 }

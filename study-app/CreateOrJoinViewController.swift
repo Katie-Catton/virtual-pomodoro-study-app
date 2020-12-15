@@ -32,6 +32,7 @@ class CreateOrJoinViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Create", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
+        //self.navigationController?.navigationBar.topItem?.title = " "
         setupViews()
         setupConstraints()
         

@@ -24,6 +24,7 @@ class MeetingViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setupConstraints()
+        getRooms()
     }
     
     
@@ -101,6 +102,12 @@ class MeetingViewController: UIViewController {
         else {
             //launch Times Up screen
         }
+    }
+    
+    // Networking stuff
+    
+    func getRooms() {
+        NetworkManager.getRooms()
     }
     
 }

@@ -154,7 +154,7 @@ class MeetingViewController: UIViewController {
     
     @objc func startTimerButtonPress() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     @objc func pauseTimerButtonPress() {
         timer.invalidate()
@@ -172,12 +172,12 @@ class MeetingViewController: UIViewController {
             else if counter < sessions {
                 status = !status
                 if status == true {
-                    time = 25 //Placeholder for study time session
+                    time = 1500 //Placeholder for study time session
                     counter += 1
                     update()
                 }
                 else {
-                    time = 15 //Placeholder for break time
+                    time = 900 //Placeholder for break time
                     counter += 1
                     update()
                 }

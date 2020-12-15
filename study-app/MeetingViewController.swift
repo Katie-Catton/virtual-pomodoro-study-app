@@ -66,7 +66,7 @@ class MeetingViewController: UIViewController {
         
         
         inviteCode = UITextField()
-        inviteCode.text = ""//pull from settings
+//        inviteCode.text = ""//pull from settings
         inviteCode.isUserInteractionEnabled = false
         inviteCode.layer.cornerRadius = 10.0
         inviteCode.clipsToBounds = true
@@ -80,12 +80,12 @@ class MeetingViewController: UIViewController {
     }
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            timeRemaining.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            timeRemaining.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
-            timeRemaining.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        
+//        NSLayoutConstraint.activate([
+//            timeRemaining.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+//            timeRemaining.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
+//            timeRemaining.heightAnchor.constraint(equalToConstant: 35)
+//        ])
+//
         NSLayoutConstraint.activate([
             inviteCodeText.leadingAnchor.constraint(equalTo: timeRemaining.leadingAnchor),
             inviteCodeText.heightAnchor.constraint(equalToConstant: 21),

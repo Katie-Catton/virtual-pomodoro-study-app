@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matthew Kim. All rights reserved.
 //
 import UIKit
+import GoogleSignIn
 
 class ViewController: UIViewController {
 
@@ -15,11 +16,13 @@ class ViewController: UIViewController {
     var emailField: UITextField!
     var passwordLabel: UILabel!
     var passwordField: UITextField!
-    var loginButton: UIButton!
+    var loginButton: GIDSignInButton!
     var signUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         // Do any additional setup after loading the view.
 
 
@@ -93,24 +96,9 @@ class ViewController: UIViewController {
         //passwordField.translatesAutoresizingMaskIntoConstraints = false
         //view.addSubview(passwordField)
         
-        loginButton = UIButton(type: .roundedRect)
-        loginButton.setTitle("Login", for: .normal)
-        loginButton.sizeToFit()
-        loginButton.setTitleColor(UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0), for: .normal)
-        loginButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 25)
-        loginButton.backgroundColor = .white
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
-        loginButton.layer.shadowColor = UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0).cgColor
-        loginButton.layer.shadowOffset = CGSize(width: 0, height: 4)
-        loginButton.layer.shadowOpacity = 0.25
-        loginButton.layer.shadowRadius = 0
-        loginButton.layer.masksToBounds = false
-        loginButton.layer.cornerRadius = 29
-        loginButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 88, bottom: 16, right: 88)
-        loginButton.addTarget(self, action: #selector(testLogin), for: .touchUpInside)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton = GIDSignInButton()
         view.addSubview(loginButton)
+
         
         signUpButton = UIButton()
         signUpButton.setTitle("Sign Up", for: .normal)
@@ -128,19 +116,19 @@ class ViewController: UIViewController {
             tomatoLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
             tomatoLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             nameLabel.heightAnchor.constraint(equalToConstant: 30),
             nameLabel.topAnchor.constraint(equalTo: tomatoLogo.bottomAnchor, constant: 26),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
               
-              // *joinButton
+//              // *joinButton
         NSLayoutConstraint.activate([
             signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15),
             signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)

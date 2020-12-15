@@ -1,16 +1,14 @@
 import UIKit
 import GoogleSignIn
 
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+//class AppDelegate: UIResponder, UIApplicationDelegate {
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GIDSignIn.sharedInstance().clientID = "CLIENT_ID"
+        GIDSignIn.sharedInstance().clientID = "903635704990-5i60f6hrknv8fh9uo8s40tb1q2j6gf0q.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
         return true
@@ -40,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return GIDSignIn.sharedInstance().handle(url)
     }
     
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
       if let error = error {
@@ -51,14 +50,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return
       }
       // Perform any operations on signed in user here.
-      let userId = user.userID                  // For client-side use only!
-      let idToken = user.authentication.idToken // Safe to send to the server
-      let fullName = user.profile.name
-      let givenName = user.profile.givenName
-      let familyName = user.profile.familyName
-      let email = user.profile.email
+        let userId = user.userID                  // For client-side use only!
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let givenName = user.profile.givenName
+        let familyName = user.profile.familyName
+        let email = user.profile.email
       // ...
+        
+        print(email)
     }
+    
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
@@ -70,6 +72,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-}
-
 

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct RoomsDataResponse: Codable {
+    
+}
+
+struct Room: Codable {
+    
+}

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import GoogleSignIn
 
 enum ExampleDataResponse<T: Any> {
     case success(data: T)
@@ -15,7 +16,7 @@ enum ExampleDataResponse<T: Any> {
 
 class NetworkManager {
     
-    static let endpoint = "/rooms/"
+    private static let host = ""
     
     // all of the enpoints we need to implement
     // endpoints - /rooms/
@@ -27,9 +28,24 @@ class NetworkManager {
     // /join/
     // POST
     
-//    static func getRooms() {
-//        AF.request(endpoint, method: HTTPMethod.get().validate().responseJSON { response in
-//            
-//        }
-//    }
+    // /rooms/
+    // GET
+    static func getRooms(completion: @escaping ([]) -> Void) {
+        let endpoint = "\(host)/rooms/"
+        AF.request(endpoint, method: HTTPMethod.get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    //POST
+    
+    static func getRoom() {
+        
+    }
 }

@@ -7,4 +7,5 @@ target 'study-app' do
 
   # Pods for study-app
   pod 'Alamofire'
+  pod 'GoogleSignIn', '~> 5.0'
 end

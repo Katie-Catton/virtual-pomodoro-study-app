@@ -59,6 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
       // ...
         
         print(email)
+        
+        NotificationCenter.default.post(
+                name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
     }
     
     

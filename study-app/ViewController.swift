@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var passwordLabel: UILabel!
     var passwordField: UITextField!
     var loginButton: GIDSignInButton!
+    var buttonBox: UIView!
     //var signUpButton: UIButton!
     
     override func viewDidLoad() {
@@ -35,6 +36,8 @@ class ViewController: UIViewController {
         // please don't remove
         // -Katie
         setupNavigationBar()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didSignIn), name: NSNotification.Name("SuccessfulSignInNotification"), object: nil)
     }
     
     // modifies default navigation bar
@@ -96,8 +99,11 @@ class ViewController: UIViewController {
         //passwordField.translatesAutoresizingMaskIntoConstraints = false
         //view.addSubview(passwordField)
         
+        buttonBox = UIView()
+        view.addSubview(buttonBox)
+        
         loginButton = GIDSignInButton()
-        view.addSubview(loginButton)
+        buttonBox.addSubview(loginButton)
 
         
         //signUpButton = UIButton()
@@ -124,8 +130,10 @@ class ViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-            loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            buttonBox.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 115),
+            buttonBox.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonBox.heightAnchor.constraint(equalToConstant: 51),
+            buttonBox.widthAnchor.constraint(equalToConstant: 220)
         ])
               
 //              // *joinButton
@@ -135,8 +143,15 @@ class ViewController: UIViewController {
        // ])
     }
     
-    func Login() {
-        
+    @objc func didSignIn()  {
+
+        // Add your code here to push the new view controller
+      navigationController?.pushViewController(CreateOrJoinViewController(), animated: true)
+
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // added this is order to continue setting up the ViewControllers for the rest of the app

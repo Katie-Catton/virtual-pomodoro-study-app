@@ -83,7 +83,6 @@ class NetworkManager {
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                 if let roomCode = try? jsonDecoder.decode(RoomResponse<Room>.self, from: data) {
-                    // Instructions: Use completion to handle response
                     let room = roomCode.data
                     completion(room)
                 }

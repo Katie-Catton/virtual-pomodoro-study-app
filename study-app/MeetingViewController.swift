@@ -8,9 +8,11 @@ import UIKit
 
 class MeetingViewController: UIViewController {
     
-    var time = 0 //pull from settings
+    var time: Int = 0 //pull from settings
     var timer = Timer()
-    var counter = 0
+    var counter: Int = 0
+    var status: Bool = true
+    var sessions: Int = 4
     var countDownLabel: UILabel!
     //var clockLogo: UIImageView!
     var startTimerButton: UIButton!
@@ -53,6 +55,14 @@ class MeetingViewController: UIViewController {
         timeRemaining.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeRemaining)
         
+        countDownLabel = UILabel()
+        countDownLabel.text = ""
+        countDownLabel.textColor = UIColor.black
+        countDownLabel.textAlignment = NSTextAlignment.center
+        countDownLabel.font = UIFont(name: "HelveticaNeue-Light", size: 30)
+        countDownLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(countDownLabel)
+        
         
         
 //        inProgress = UILabel()
@@ -85,9 +95,10 @@ class MeetingViewController: UIViewController {
         inviteCode.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         view.addSubview(inviteCode)
         
-        let startImage = UIImage(contentsOfFile: "starticon")
+        //let startImage = UIImage(contentsOfFile: "starticon")
         startTimerButton = UIButton(type: UIButton.ButtonType.system)
-        startTimerButton.setBackgroundImage(startImage, for: .normal)
+        //startTimerButton.setBackgroundImage(startImage, for: .normal)
+        startTimerButton.setTitle("START", for: .normal)
         startTimerButton.translatesAutoresizingMaskIntoConstraints = false
         startTimerButton.backgroundColor = .white
         startTimerButton.addTarget(self, action: #selector(startTimerButtonPress), for: .touchUpInside)
@@ -134,6 +145,11 @@ class MeetingViewController: UIViewController {
             startTimerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 33),
             startTimerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            countDownLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                    countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     @objc func startTimerButtonPress() {
@@ -145,26 +161,34 @@ class MeetingViewController: UIViewController {
     }
     
     
-   @objc func update() {
-//
-//
-//        if(time > 0){
-//            let minutes = String(time / 60)
-//            let seconds = String(time % 60)
-//            countDownLabel.text = minutes + ":" + seconds
-//            time -= 1
-//        }
-//        else if counter != sessions {
-//            let time = breaktime
-//            counter += 1
-//            update()
-//
-//        }
-//        else {
-//            let newViewController = SettingsViewController()
-//            navigationController?.pushViewController(newViewController, animated: true)
-//        }
-   }
+    @objc func update() {
+
+            if(time > 0){
+                let minutes = String(time / 60)
+                let seconds = String(time % 60)
+                countDownLabel.text = minutes + ":" + seconds
+                time -= 1
+            }
+            else if counter < sessions {
+                status = !status
+                if status == true {
+                    time = 25 //Placeholder for study time session
+                    counter += 1
+                    update()
+                }
+                else {
+                    time = 15 //Placeholder for break time
+                    counter += 1
+                    update()
+                }
+
+            }
+            else {
+                let newViewController = SettingsViewController()
+                navigationController?.pushViewController(newViewController, animated: true)
+                
+            }
+        }
     
     @objc func pushSettings() {
         let newViewController = SettingsViewController()

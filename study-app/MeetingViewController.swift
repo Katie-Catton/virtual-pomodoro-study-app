@@ -17,11 +17,15 @@ class MeetingViewController: UIViewController {
     //var inProgress: UILabel!
     var inviteCodeText: UILabel!
     var inviteCode: UITextField!
+    var editButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
+
+        self.navigationController?.navigationBar.topItem?.title = " "
+
         setupViews()
         setupConstraints()
         //getRooms()
@@ -66,26 +70,37 @@ class MeetingViewController: UIViewController {
         
         
         inviteCode = UITextField()
-//        inviteCode.text = ""//pull from settings
+        inviteCode.text = "bluehats"//pull from settings
         inviteCode.isUserInteractionEnabled = false
-        inviteCode.layer.cornerRadius = 10.0
+        inviteCode.layer.cornerRadius = 12.0
         inviteCode.clipsToBounds = true
         inviteCode.textColor = UIColor.black
         inviteCode.textAlignment = NSTextAlignment.center
         inviteCode.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         inviteCode.translatesAutoresizingMaskIntoConstraints = false
+        inviteCode.layer.borderWidth = 1
+        inviteCode.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         view.addSubview(inviteCode)
         
-    
+        startTimerButton = UIButton()
+        
+        
+        let editImage = UIImage(named: "editicon")
+        editButton = UIButton(type: UIButton.ButtonType.system)
+        editButton.setBackgroundImage(editImage, for: .normal)
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.backgroundColor = .white
+        editButton.addTarget(self, action: #selector(pushSettings), for: .touchUpInside)
+        view.addSubview(editButton)
     }
     
     func setupConstraints() {
-//        NSLayoutConstraint.activate([
-//            timeRemaining.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-//            timeRemaining.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
-//            timeRemaining.heightAnchor.constraint(equalToConstant: 35)
-//        ])
-//
+        NSLayoutConstraint.activate([
+            timeRemaining.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            timeRemaining.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
+            timeRemaining.heightAnchor.constraint(equalToConstant: 35)
+        ])
+        
         NSLayoutConstraint.activate([
             inviteCodeText.leadingAnchor.constraint(equalTo: timeRemaining.leadingAnchor),
             inviteCodeText.heightAnchor.constraint(equalToConstant: 21),
@@ -94,8 +109,17 @@ class MeetingViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             inviteCode.leadingAnchor.constraint(equalTo: inviteCodeText.trailingAnchor, constant: 6),
-            inviteCode.heightAnchor.constraint(equalToConstant: 23),
-            inviteCode.topAnchor.constraint(equalTo: inviteCodeText.topAnchor)
+            inviteCode.heightAnchor.constraint(equalToConstant: 28),
+            inviteCode.widthAnchor.constraint(equalToConstant: 82),
+            inviteCode.topAnchor.constraint(equalTo: inviteCodeText.topAnchor),
+            inviteCode.centerYAnchor.constraint(equalTo: inviteCodeText.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            editButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
+            editButton.heightAnchor.constraint(equalToConstant: 30),
+            editButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -107,7 +131,12 @@ class MeetingViewController: UIViewController {
 //        timer.invalidate()
 //        }
         
-        
+    @objc func pushSettings() {
+        let newViewController = SettingsViewController()
+        navigationController?.pushViewController(newViewController, animated: true)
+    }
+    
+    
     func update() {
         
         if(time > 0){

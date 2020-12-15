@@ -6,9 +6,13 @@
 //
 import UIKit
 
+//getRooms()
+
+
 class MeetingViewController: UIViewController {
     
-    var time: Int = 0 //pull from settings
+    //private var rooms: Rooms!
+    var time: Int = 0 //rooms.workLength    pull from settings
     var timer = Timer()
     var counter: Int = 0
     var status: Bool = true
@@ -21,6 +25,11 @@ class MeetingViewController: UIViewController {
     var inviteCodeText: UILabel!
     var inviteCode: UITextField!
     var editButton: UIButton!
+    
+//     init(rooms: Rooms) {
+//         super.init(nibName: nil, bundle: nil)
+//         self.rooms = rooms
+//     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,12 +181,12 @@ class MeetingViewController: UIViewController {
             else if counter < sessions {
                 status = !status
                 if status == true {
-                    time = 1500 //Placeholder for study time session
+                    time = 1500 //rooms.workLength Placeholder for study time session
                     counter += 1
                     update()
                 }
                 else {
-                    time = 900 //Placeholder for break time
+                    time = 900 //rooms.breakLength Placeholder for break time
                     counter += 1
                     update()
                 }

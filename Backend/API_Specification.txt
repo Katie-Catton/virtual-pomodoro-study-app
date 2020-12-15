@@ -113,3 +113,14 @@ Success response
     'token': <CLIENT TOKEN FOR CONNECTING TO SESSION> 
 }
 
+Update user session 
+
+POST /session/
+
+Request
+Headers
+{
+    Authorization: Bearer <USER SESSION TOKEN>
+}
+
+

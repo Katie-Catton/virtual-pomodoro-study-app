@@ -21,7 +21,7 @@ class User(db.Model):
 
 
     def __init__(self, **kwargs):
-        self.username = kwargs.get('user_id')
+        self.username = kwargs.get('username')
         self.room_id = None 
         self.renew_session()
 

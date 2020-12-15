@@ -30,18 +30,19 @@ class NetworkManager {
     
     // /rooms/
     // GET
-    static func getRooms(completion: @escaping ([]) -> Void) {
-        let endpoint = "\(host)/rooms/"
-        AF.request(endpoint, method: HTTPMethod.get).validate().responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
+
+    //    static func getRooms(completion: @escaping <#type#> ([]) -> Void) {
+//        let endpoint = "\(host)/rooms/"
+//        AF.request(endpoint, method: HTTPMethod.get).validate().responseJSON { response in
+//            switch response.result {
+//            case .success(let data):
+//                let jsonDecoder = JSONDecoder()
+//                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
     
     //POST
     

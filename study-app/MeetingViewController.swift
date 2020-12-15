@@ -11,10 +11,10 @@ class MeetingViewController: UIViewController {
     var time = 0 //pull from settings
     var timer = Timer()
     var countDownLabel: UILabel!
-    var clockLogo: UIImageView!
+    //var clockLogo: UIImageView!
     var startTimerButton: UIButton!
     var timeRemaining: UILabel!
-    var inProgress: UILabel!
+    //var inProgress: UILabel!
     var inviteCodeText: UILabel!
     var inviteCode: UITextField!
     
@@ -24,7 +24,7 @@ class MeetingViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setupConstraints()
-        getRooms()
+        //getRooms()
     }
     
     
@@ -34,33 +34,33 @@ class MeetingViewController: UIViewController {
     
     func setupViews() {
         
-        clockLogo = UIImageView()
-        clockLogo.translatesAutoresizingMaskIntoConstraints = false
-        clockLogo.contentMode = .scaleAspectFit
-        clockLogo.image = UIImage(named: "clock")
-        view.addSubview(clockLogo)
+//        clockLogo = UIImageView()
+//        clockLogo.translatesAutoresizingMaskIntoConstraints = false
+//        clockLogo.contentMode = .scaleAspectFit
+//        clockLogo.image = UIImage(named: "clock")
+//        view.addSubview(clockLogo)
         
         timeRemaining = UILabel()
         timeRemaining.text = "Time remaining:"
         timeRemaining.textColor = UIColor.black
         timeRemaining.textAlignment = NSTextAlignment.center
-        timeRemaining.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+        timeRemaining.font = UIFont(name: "HelveticaNeue-Light", size: 30)
         timeRemaining.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeRemaining)
         
-        inProgress = UILabel()
-        inProgress.text = "In Progress"
-        inProgress.textColor = UIColor.black
-        inProgress.textAlignment = NSTextAlignment.center
-        inProgress.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        inProgress.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(inProgress)
+//        inProgress = UILabel()
+//        inProgress.text = "In Progress"
+//        inProgress.textColor = UIColor.black
+//        inProgress.textAlignment = NSTextAlignment.center
+//        inProgress.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+//        inProgress.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(inProgress)
         
         inviteCodeText = UILabel()
         inviteCodeText.text = "Invite Code"
         inviteCodeText.textColor = UIColor.black
         inviteCodeText.textAlignment = NSTextAlignment.center
-        inviteCodeText.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+        inviteCodeText.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         inviteCodeText.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(inviteCodeText)
         
@@ -72,7 +72,7 @@ class MeetingViewController: UIViewController {
         inviteCode.clipsToBounds = true
         inviteCode.textColor = UIColor.black
         inviteCode.textAlignment = NSTextAlignment.center
-        inviteCode.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+        inviteCode.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         inviteCode.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(inviteCode)
         
@@ -80,6 +80,23 @@ class MeetingViewController: UIViewController {
     }
     
     func setupConstraints() {
+        NSLayoutConstraint.activate([
+            timeRemaining.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            timeRemaining.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
+            timeRemaining.heightAnchor.constraint(equalToConstant: 35)
+        ])
+        
+        NSLayoutConstraint.activate([
+            inviteCodeText.leadingAnchor.constraint(equalTo: timeRemaining.leadingAnchor),
+            inviteCodeText.heightAnchor.constraint(equalToConstant: 21),
+            inviteCodeText.topAnchor.constraint(equalTo: timeRemaining.bottomAnchor, constant: 16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            inviteCode.leadingAnchor.constraint(equalTo: inviteCodeText.trailingAnchor, constant: 6),
+            inviteCode.heightAnchor.constraint(equalToConstant: 23),
+            inviteCode.topAnchor.constraint(equalTo: inviteCodeText.topAnchor)
+        ])
     }
     
 //    func startTimerButtonPress(sender: startTimerButton) {
@@ -105,9 +122,8 @@ class MeetingViewController: UIViewController {
     }
     
     // Networking stuff
-    
-    func getRooms() {
-        NetworkManager.getRooms()
-    }
+//    func getRooms() {
+//        NetworkManager.getRooms()
+//    }
     
 }

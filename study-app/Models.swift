@@ -21,21 +21,51 @@ struct Room: Codable {
     let paused: Bool
 }
 
-//struct RoomsDataResponse: Codable {
-//    var rooms: [Room]
-//}
-
-struct roomResponse<T: Codable>: Codable {
+struct RoomResponse<T: Codable>: Codable {
     let data: T
     let success: Bool
 }
 
-struct signInReponse: Codable {
+struct SignInReponse: Codable {
     let sessionToken: String
     let sessionExpiration: String
     let updateToken: String
 }
 
+struct RoomKeys: Codable {
+    let key: String
+    let opentokId: String
+    let token: String
+}
 
+//struct PauseRoomResponse<T: Codable>: Codable {
+//    let success: Bool
+//    let data: T
+//}
+
+//struct DeleteRoomResponse<T: Codable>: Codable {
+//    let success: Bool
+//    let data: T
+//}
+
+//struct JoinResponse: Codable {
+//    let key: String
+//    let opentokId: String
+//    let token: String
+//}
+
+
+
+//struct RoomsDataResponse: Codable {
+//    var rooms: [Room]
+//}
+
+//struct CreateRoomResponse<T: Codable>: Codable {
+//    let success: Bool
+//    let data: T
+//    let key: String
+//    let opentokId: String
+//    let token: String
+//}
 
 

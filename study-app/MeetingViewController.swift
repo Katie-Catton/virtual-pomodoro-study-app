@@ -145,9 +145,9 @@ class MeetingViewController: UIViewController {
     }
     
     
-//    @objc func update() {
-//        
-//        
+   @objc func update() {
+//
+//
 //        if(time > 0){
 //            let minutes = String(time / 60)
 //            let seconds = String(time % 60)
@@ -164,7 +164,7 @@ class MeetingViewController: UIViewController {
 //            let newViewController = SettingsViewController()
 //            navigationController?.pushViewController(newViewController, animated: true)
 //        }
-//    }
+   }
     
     @objc func pushSettings() {
         let newViewController = SettingsViewController()

@@ -21,13 +21,19 @@ struct Room: Codable {
     let paused: Bool
 }
 
-struct RoomsDataResponse: Codable {
-    var roooms: [Room]
-}
+//struct RoomsDataResponse: Codable {
+//    var rooms: [Room]
+//}
 
-struct Response<T: Codable>: Codable {
+struct roomResponse<T: Codable>: Codable {
     let data: T
     let success: Bool
+}
+
+struct signInReponse: Codable {
+    let sessionToken: String
+    let sessionExpiration: String
+    let updateToken: String
 }
 
 

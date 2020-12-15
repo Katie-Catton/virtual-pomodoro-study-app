@@ -18,10 +18,9 @@ class MeetingViewController: UIViewController {
     var status: Bool = true
     var sessions: Int = 4
     var countDownLabel: UILabel!
-    //var clockLogo: UIImageView!
+    
     var startTimerButton: UIButton!
     var timeRemaining: UILabel!
-    //var inProgress: UILabel!
     var inviteCodeText: UILabel!
     var inviteCode: UITextField!
     var editButton: UIButton!
@@ -43,18 +42,7 @@ class MeetingViewController: UIViewController {
         //getRooms()
     }
     
-    
-//    private func startTimer() {
-//        self.totalTime = 0
-//    }
-    
     func setupViews() {
-        
-//        clockLogo = UIImageView()
-//        clockLogo.translatesAutoresizingMaskIntoConstraints = false
-//        clockLogo.contentMode = .scaleAspectFit
-//        clockLogo.image = UIImage(named: "clock")
-//        view.addSubview(clockLogo)
         
         timeRemaining = UILabel()
         timeRemaining.text = "Time remaining:"
@@ -72,16 +60,6 @@ class MeetingViewController: UIViewController {
         countDownLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(countDownLabel)
         
-        
-        
-//        inProgress = UILabel()
-//        inProgress.text = "In Progress"
-//        inProgress.textColor = UIColor.black
-//        inProgress.textAlignment = NSTextAlignment.center
-//        inProgress.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-//        inProgress.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(inProgress)
-        
         inviteCodeText = UILabel()
         inviteCodeText.text = "Invite Code"
         inviteCodeText.textColor = UIColor.black
@@ -90,11 +68,10 @@ class MeetingViewController: UIViewController {
         inviteCodeText.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(inviteCodeText)
         
-        
         inviteCode = UITextField()
         inviteCode.text = "bluehats"//pull from settings
         inviteCode.isUserInteractionEnabled = false
-        inviteCode.layer.cornerRadius = 12.0
+        inviteCode.layer.cornerRadius = 12
         inviteCode.clipsToBounds = true
         inviteCode.textColor = UIColor.black
         inviteCode.textAlignment = NSTextAlignment.center
@@ -104,12 +81,21 @@ class MeetingViewController: UIViewController {
         inviteCode.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
         view.addSubview(inviteCode)
         
-        //let startImage = UIImage(contentsOfFile: "starticon")
-        startTimerButton = UIButton(type: UIButton.ButtonType.system)
-        //startTimerButton.setBackgroundImage(startImage, for: .normal)
-        startTimerButton.setTitle("START", for: .normal)
-        startTimerButton.translatesAutoresizingMaskIntoConstraints = false
+        startTimerButton = UIButton()
+        startTimerButton.setTitle("Start Session", for: .normal)
+        startTimerButton.setTitleColor(UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0), for: .normal)
+        startTimerButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         startTimerButton.backgroundColor = .white
+        startTimerButton.layer.borderWidth = 1
+        startTimerButton.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
+        startTimerButton.layer.shadowColor = UIColor(red: 136/255, green: 134/255, blue: 134/255, alpha: 1.0).cgColor
+        startTimerButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+        startTimerButton.layer.shadowOpacity = 0.25
+        startTimerButton.layer.shadowRadius = 0
+        startTimerButton.layer.masksToBounds = false
+        startTimerButton.layer.cornerRadius = 20
+        startTimerButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        startTimerButton.translatesAutoresizingMaskIntoConstraints = false
         startTimerButton.addTarget(self, action: #selector(startTimerButtonPress), for: .touchUpInside)
         view.addSubview(startTimerButton)
         
@@ -151,13 +137,13 @@ class MeetingViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            startTimerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 33),
+            startTimerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             startTimerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            countDownLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                    countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            countDownLabel.topAnchor.constraint(equalTo: timeRemaining.topAnchor),
+            countDownLabel.leadingAnchor.constraint(equalTo: timeRemaining.trailingAnchor, constant: 10)
         ])
     }
     
@@ -169,7 +155,7 @@ class MeetingViewController: UIViewController {
         timer.invalidate()
     }
     
-    
+    // makes timer countdown for work and break sessions
     @objc func update() {
 
             if(time > 0){
@@ -197,14 +183,14 @@ class MeetingViewController: UIViewController {
                 navigationController?.pushViewController(newViewController, animated: true)
                 
             }
-        }
+    }
     
     @objc func pushSettings() {
         let newViewController = SettingsViewController()
         navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    // Networking stuff
+    // Networking
 //    func getRooms() {
 //        NetworkManager.getRooms { rooms in
 //            self.rooms = rooms

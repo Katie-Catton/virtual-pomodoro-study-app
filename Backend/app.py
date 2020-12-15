@@ -235,7 +235,6 @@ def verify_session_token():
     return True
 
 
-
 ### Only necessary for testing ###
 
 # Create user

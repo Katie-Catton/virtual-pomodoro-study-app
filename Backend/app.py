@@ -5,8 +5,11 @@ from db import Room, User, db
 import helper
 import time 
 import json
+from Backend import users_dao
+
 from google.oauth2 import id_token
 from google.auth.transport import requests
+
 from dotenv import load_dotenv
 load_dotenv()
 try:
@@ -60,6 +63,9 @@ def get_room(code):
 # Create room and add creator to session
 @app.route("/rooms/", methods=["POST"])
 def create_session():
+    if not verify_session_token():
+        return failure_response("Session token expired.")
+        
     body = json.loads(request.data)
 
     num_sessions = body.get("num_sessions")
@@ -67,7 +73,7 @@ def create_session():
     break_length = body.get("break_length")
     room_length = num_sessions*(work_length+break_length)
     
-    user = User.query.filter_by(username=body.get('username')).first()
+    user = users_dao.get_user_by_username(body.get("username")).first()
     
     if user is None:
         failure_response("User invalid")
@@ -105,6 +111,7 @@ def create_session():
         'token': token 
     }, 201)
 
+
 #Pause/unpauses room 
 @app.route("/rooms/<string:code>/pause/", methods=["POST"])
 def pause_room(code):
@@ -119,9 +126,13 @@ def pause_room(code):
         db.session.commit()
         return success_response(room.serialize())
 
+
 # Delete room
 @app.route("/rooms/<string:code>/", methods=["DELETE"])
 def delete_room(code):
+    if not verify_session_token():
+        return failure_response("Session token expired.")
+
     room = Room.query.filter_by(code=code).first()
     if room is None:
         return failure_response("Room invalid")
@@ -135,16 +146,11 @@ def delete_room(code):
 @app.route("/signin/", methods=["POST"])
 def sign_in():
     body = json.loads(request.data)
-    token = body.get('user_token')
+    id_token = body.get('id_token')
     try:
-        # Specify the CLIENT_ID of the app that accesses the backend
-        id_info = id_token.verify_oauth2_token(token, requests.Request(), client_id)
+        id_info = id_token.verify_oauth2_token(id_token, requests.Request(), client_id)
         username = id_info['sub']
-        user = User.query.filter_by(username=username).first()
-        if user is None:
-            user = User(username)
-            db.session.add(user)
-            db.session.commit()
+        user = users_dao.create_user(username)
         data = json.dumps({
             "session_token": user.session_token,
             "session_expiration": str(user.session_expiration),
@@ -166,6 +172,9 @@ def join_session():
     token = opentok.generate_token(room.opentok_id,
                                     expire_time=int(time.time()) + room.room_length)
     
+    if not verify_session_token():
+        return failure_response("Session token expired.")
+
     if room is not None:
         if user is not None:
             room.users.append(user)
@@ -178,6 +187,53 @@ def join_session():
             return failure_response("User invalid")
     else:
         return failure_response("Room invalid")
+
+
+
+@app.route("/session/", methods=["POST"])
+def update_session():
+    was_successful, update_token = extract_token(request)
+    if not was_successful:
+        return failure_response(update_token)
+
+    user = users_dao.get_user_by_update_token(update_token)
+    if user is not None:
+        user.renew_session()
+        data = json.dumps({
+            "session_token": user.session_token,
+            "session_expiration": str(user.session_expiration),
+            "update_token": user.update_token
+           })
+        return success_response(data, 201)
+    else:
+        return failure_response(update_token)
+
+
+def extract_token(request):
+    auth_header = request.headers.get("Authorization")
+    if auth_header is None:
+        return False, "Missing authorization header"
+    
+    bearer_token = auth_header.replace("Bearer ", "").strip()
+    if bearer_token is None or not bearer_token:
+        return False, "Invalid authorization header"
+    
+    return True, bearer_token
+
+
+def verify_session_token():
+    was_successful, session_token = extract_token(request)
+
+    if not was_successful:
+        return False
+    
+    user = users_dao.get_user_by_session_token(session_token)
+
+    if not user or not user.verify_session_token(session_token):
+        return False
+
+    return True
+
 
 
 ### Only necessary for testing ###

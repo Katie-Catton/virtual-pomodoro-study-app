@@ -38,24 +38,6 @@ struct RoomKeys: Codable {
     let token: String
 }
 
-//struct PauseRoomResponse<T: Codable>: Codable {
-//    let success: Bool
-//    let data: T
-//}
-
-//struct DeleteRoomResponse<T: Codable>: Codable {
-//    let success: Bool
-//    let data: T
-//}
-
-//struct JoinResponse: Codable {
-//    let key: String
-//    let opentokId: String
-//    let token: String
-//}
-
-
-
 //struct RoomsDataResponse: Codable {
 //    var rooms: [Room]
 //}

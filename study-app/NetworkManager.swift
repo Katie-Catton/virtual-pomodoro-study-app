@@ -18,10 +18,10 @@ class NetworkManager {
     
     private static let host = "https://virtual-pomodoro.herokuapp.com"
     
-    // all of the endpoints we need to implement
-    // endpoints - /rooms/
+    // endpoints we need to implement:
+    // /rooms/
     // GET, POST
-    // query parameter String, /?code=string/
+    // query parameter /?code=string/
     // POST, DELETE
     // /signin/
     // POST
@@ -75,9 +75,33 @@ class NetworkManager {
     
     // /rooms/?code=string
     // GET
-    static func getRoomCode(completion: @escaping (Room) -> Void) {
+    static func getRoomCode(withQuery query: String, completion: @escaping (Room) -> Void) {
+        let parameters: [String: Any] = [
+            "code" : query
+        ]
         let endpoint = "\(host)/rooms/?code="
-        AF.request(endpoint, method: .get).validate().responseData { response in
+        AF.request(endpoint, method: .get, parameters: parameters).validate().responseData { response in
+            switch response.result {
+            case .success(let data):
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                if let roomCode = try? jsonDecoder.decode(RoomResponse<Room>.self, from: data) {
+                    let room = roomCode.data
+                    completion(room)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    //DELETE
+    static func deleteRoom(withQuery query: String, completion: @escaping (Room) -> Void) {
+        let parameters: [String: Any] = [
+            "code" : query
+        ]
+        let endpoint = "\(host)/rooms/?code="
+        AF.request(endpoint, method: .delete, parameters: parameters).validate().responseData { response in
             switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
@@ -93,6 +117,8 @@ class NetworkManager {
     }
 
     
+    // /signin/
+    // POST
     static func getSession(userToken: String, completion: @escaping (SignInReponse) -> Void) {
             let parameters: [String: Any] = [
                 "user_token" : userToken
@@ -114,7 +140,26 @@ class NetworkManager {
     }
     
     
-    // /signin/
+    // /join/
     // POST
-
+    static func joinRoom(code: String, username: String, completion: @escaping (RoomKeys) -> Void) {
+            let parameters: [String: Any] = [
+                "code": code,
+                "username": username
+            ]
+            let endpoint = "\(host)/signin/"
+            AF.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+                switch response.result {
+                case .success(let data):
+                    let jsonDecoder = JSONDecoder()
+                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                    if let room = try? jsonDecoder.decode(RoomKeys.self, from: data) {
+                        completion(room)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+    }
+    
 }

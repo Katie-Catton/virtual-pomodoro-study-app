@@ -2,8 +2,6 @@ import UIKit
 import GoogleSignIn
 import Alamofire
 
-//class AppDelegate: UIResponder, UIApplicationDelegate {
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
@@ -11,6 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Override point for customization after application launch.
         GIDSignIn.sharedInstance().clientID = "903635704990-5i60f6hrknv8fh9uo8s40tb1q2j6gf0q.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         return true
     }
@@ -62,13 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         NotificationCenter.default.post(
                 name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
-        
-//        func getSession() {
-//            NetworkManager.getSession(userToken: idToken) { signInResponse in
-//                
-//                
-//            }
-//        }
         
     }
     

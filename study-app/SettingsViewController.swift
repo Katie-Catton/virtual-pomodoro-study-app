@@ -17,16 +17,17 @@ class SettingsViewController: UIViewController {
     // data for table
     let reuseIdentifier = "settingCellReuse"
     
-    let workDuration = Setting(title: "Work Session", text: "00:25:00", type: .inputNum)
-    let breakDuration = Setting(title: "Break Session", text: "00:05:00", type: .inputNum)
-    let numberOfSessions = Setting(title: "Number of Sessions", text: "4", type: .inputNum)
+    let workDuration = Setting(title: "Work Session", text: "00:25:00", type: .input)
+    let breakDuration = Setting(title: "Break Session", text: "00:05:00", type: .input)
+    let numberOfSessions = Setting(title: "Number of Sessions", text: "4", type: .input)
     let optionalMute = Setting(title: "Other", text: "Let users unmute", type: .toggle)
+    let createMeetingCode = Setting(title: "Create room code", text: "bluehats", type: .input)
     
     var settings: [Setting]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        settings = [workDuration, breakDuration, numberOfSessions, optionalMute]
+        settings = [workDuration, breakDuration, numberOfSessions, optionalMute, createMeetingCode]
         view.backgroundColor = .white
         setupViews()
         setupConstraints()
@@ -98,7 +99,6 @@ extension SettingsViewController: UITableViewDataSource {
 }
 
 extension SettingsViewController: UITableViewDelegate {
-    // TODO: implement didSelectRowAt?
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120

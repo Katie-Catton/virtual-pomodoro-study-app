@@ -11,8 +11,8 @@ class SettingsTableViewCell: UITableViewCell {
 
     // name of setting
     var nameLabel: UILabel!
-    // textfield that allows user to enter numeric values
-    var numericInput: UITextField!
+    // textfield that allows user to customize settings
+    var textInput: UITextField!
     // switch that allows user to toggle the muting function
     var toggleMute: UISwitch!
     // text describing the unmute option
@@ -42,16 +42,16 @@ class SettingsTableViewCell: UITableViewCell {
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
         ])
         
-        // *numericInput
-        numericInput = UITextField()
-        numericInput.translatesAutoresizingMaskIntoConstraints = false
-        numericInput.textAlignment = .center
-        numericInput.font = UIFont(name: "HelveticaNeue-Light", size: 24)
-        numericInput.textColor = .black
-        numericInput.layer.borderWidth = 1
-        numericInput.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
-        numericInput.layer.cornerRadius = 10
-        numericInput.keyboardType = .numberPad
+        // *textInput
+        textInput = UITextField()
+        textInput.translatesAutoresizingMaskIntoConstraints = false
+        textInput.textAlignment = .center
+        textInput.font = UIFont(name: "HelveticaNeue-Light", size: 24)
+        textInput.textColor = .black
+        textInput.layer.borderWidth = 1
+        textInput.layer.borderColor = UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0).cgColor
+        textInput.layer.cornerRadius = 10
+        textInput.keyboardType = .numberPad
         
         // *toggleMute
         toggleMute = UISwitch()
@@ -70,15 +70,15 @@ class SettingsTableViewCell: UITableViewCell {
     
     func selectTypeOfInput(setting: Setting) {
         if setting.type != .toggle{
-            // *numericInput
-            numericInput.attributedPlaceholder = NSAttributedString(string: setting.placeholderText, attributes: [.foregroundColor: UIColor.black, .font: UIFont(name: "HelveticaNeue-Light", size: 24)!])
-            contentView.addSubview(numericInput)
+            // *textInput
+            textInput.attributedPlaceholder = NSAttributedString(string: setting.placeholderText, attributes: [.foregroundColor: UIColor.black, .font: UIFont(name: "HelveticaNeue-Light", size: 24)!])
+            contentView.addSubview(textInput)
             
             NSLayoutConstraint.activate([
-                numericInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                numericInput.heightAnchor.constraint(equalToConstant: 46),
-                numericInput.widthAnchor.constraint(equalToConstant: 143),
-                numericInput.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16)
+                textInput.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                textInput.heightAnchor.constraint(equalToConstant: 46),
+                textInput.widthAnchor.constraint(equalToConstant: 143),
+                textInput.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16)
             ])
         }
         else {

@@ -8,7 +8,7 @@
 import Foundation
 
 enum settingType {
-    case inputNum
+    case input
     case toggle
 }
 

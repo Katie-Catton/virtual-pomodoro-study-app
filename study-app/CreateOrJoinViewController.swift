@@ -14,7 +14,7 @@ class CreateOrJoinViewController: UIViewController {
     var tomatoImage: UIImageView!
     // welcome text
     var welcomeLabel: UILabel!
-    // messgae that provides basic instructions for user to create or join a meeting
+    // message that provides basic instructions for user to create or join a meeting
     var instructionText: UITextView!
     // button to create a meeting
     var createButton: UIButton!
@@ -32,11 +32,10 @@ class CreateOrJoinViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Create", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 25)!], for: .normal)
-        //self.navigationController?.navigationBar.topItem?.title = " "
+
         setupViews()
         setupConstraints()
         
-        // TODO handle keyboard position covering UITextField
     }
     
     func setupViews() {
@@ -121,7 +120,6 @@ class CreateOrJoinViewController: UIViewController {
         // *inputCode
         inputCode = UITextField()
         inputCode.translatesAutoresizingMaskIntoConstraints = false
-        // TODO figure out why ! is needed for .font attribute
         inputCode.attributedPlaceholder = NSAttributedString(string: "Enter room code here", attributes: [.foregroundColor: UIColor(red: 163/255, green: 161/255, blue: 161/255, alpha: 1.0), .font: UIFont(name: "HelveticaNeue-Light", size: 20)!])
         inputCode.textAlignment = .center
         inputCode.font = UIFont(name: "HelveticaNeue-Light", size: 20)
